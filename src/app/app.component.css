@@ -1,0 +1,21 @@
+.container {
+    padding: 50px;
+
+    height: 100%;
+}
+
+.filter-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    margin-bottom: 30px;
+}
+
+.w500 {
+    width: 800px;
+}
+
+.mb20 {
+    margin-bottom: 10px;
+}

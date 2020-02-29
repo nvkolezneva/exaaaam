@@ -1,0 +1,79 @@
+
+<header class="bg-info text-light py-2">
+  <div class="container d-flex justify-content-between align-items-center">
+    <div class="font-weight-bold">
+     Колезнева Надежда, 181-323
+    </div>
+    <div class="text-warning">
+      Вариант 27
+    </div>
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link btn"
+           (click)="screen = 'contacts'"
+           [ngClass]="[((screen==='contacts') ? 'text-primary' : ' ')]"
+        >Контакты</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link btn"
+           (click)="screen = 'notes'"
+           [ngClass]="[ ((screen==='notes') ? 'text-primary' : ' ')]"
+        >Просмотр</a>
+      </li>
+
+    </ul>
+  </div>
+
+</header>
+<main>
+
+  <app-contacts [hidden]="screen !== 'contacts'"></app-contacts>
+  <div [hidden]="screen !== 'notes'" class="container">
+
+    <div class="mb20">
+
+      <h2>Создать новую заметку</h2>
+      <form (ngSubmit)="addThings()" id="creation_form">
+
+        <input type="text" name="name" class="form-control" placeholder="Описание"
+               [(ngModel)]="newThing.name">
+
+        <br/>
+
+        <input type="text" name="status" class="form-control" placeholder="Статус(1 - выполнено, 0 - не выполнено)"
+               [(ngModel)]="newThing.status">
+
+        <br/>
+
+        <input type="date" name="finish_date" class="form-control" placeholder="Дата окончания"
+               [(ngModel)]="newThing.finish_date">
+
+        <br/>
+        <button class="btn btn-info" color="primary">Добавить</button>
+      </form>
+    </div>
+
+    <div>
+      <h2>Отфильтровать</h2>
+
+      <input class="form-control" placeholder="Описание" [value]="nameFilter" (input)="nameFilter = $event.target.value">
+
+      <button color="primary" type="button" class="btn btn-info" (click)="filter()">Отфильтровать</button>
+    </div>
+
+    <div>
+      <h2>Смотреть:</h2>
+      <button color="primary" type="button" class="btn btn-info" (click)="showAll()">Все</button>
+      <br>
+      <button color="primary" type="button" class="btn btn-info" (click)="showDone()">Выполненые</button>
+      <br>
+      <button color="primary" type="button" class="btn btn-info" (click)="showNotDone()">Не выполненные</button>
+      <br>
+      <button color="primary" type="button" class="btn btn-info" (click)="showOutdated()">Простроченный</button>
+    </div>
+
+    <app-thing *ngFor="let thing of thingsView" [thing]="thing" (deleteThingFromList)="deleteThingFromList(thing)">
+    </app-thing>
+  </div>
+</main>
+
